@@ -80,5 +80,42 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  addArea:function(){
+    wx.navigateTo({
+      url: '../operation/operation',
+    })
+  },
+  deleteArea:function(e){
+    var that = this;
+      wx.showModal({
+        title:'提示',
+        content:'确定要删除【'+e.target.dataset.name+']吗？' ,
+        success:function(sm){
+          if(sm.confirm){
+            wx.request({
+              url: 'http://127.0.0.1:8082:/demo/superadmin/arearemove',
+              data:{"oid":e.target.dataset.id},
+              method:"GET",
+              success:function(res){
+                var toastText = "删除成功！";
+                if(res.data.success){
+                  that.data.list.splice(e.target.dataset.index,1);
+                  that.setData({
+                    list: that.data.list
+                  });
+                }else{
+                  toastText="删除失败！";
+                }
+                wx.showToast({
+                  title: toastText,
+                  icon: '',
+                  duration:2000
+                })
+              }
+            })
+          }
+        }
+      })
   }
 })
