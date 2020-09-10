@@ -26,7 +26,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    wx.request({
+      url: 'http://127.0.0.1:8082/demo/superadmin/listarea',
+      method:"GET",
+      data:{},
+      success:function(res){
+        var list = res.data.list;
+        if(list != null){
+          that.setData({list:list});
+        }else{
+          var toastText = '获取数据失败'+res.data.errMsg;
+          wx.showToast({
+            title: toastText,
+            icon:'',
+            duration:2000
+          })
+        }
+      }
+    })
   },
 
   /**
