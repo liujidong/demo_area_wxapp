@@ -94,7 +94,7 @@ Page({
         success:function(sm){
           if(sm.confirm){
             wx.request({
-              url: 'http://127.0.0.1:8082:/demo/superadmin/arearemove',
+              url: 'http://127.0.0.1:8082/demo/superadmin/arearemove',
               data:{"oid":e.target.dataset.id},
               method:"GET",
               success:function(res){
